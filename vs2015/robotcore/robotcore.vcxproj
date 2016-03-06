@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{F02333B8-206E-4312-B139-71A98E6369BD}</ProjectGuid>
+    <RootNamespace>robotcore</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..;$(ProjectDir)\..\..\third_party\Drivers\CMSIS\Device\ST\STM32F4xx\Include;$(ProjectDir)\..\..\third_party\Drivers\STM32F4xx_HAL_Driver\Inc;$(ProjectDir)\..\..\third_party\Drivers\BSP\STM32F429I-Discovery;$(ProjectDir)\..\..\third_party\Drivers\BSP\Components\Common;$(ProjectDir)\..\..\third_party\Utilities\Log;$(ProjectDir)\..\..\third_party\Utilities\CPU;$(ProjectDir)\..\..\third_party\Drivers\;$(ProjectDir)\..\..\robotcore</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\RobotCore\l3gd20h.c" />
+    <ClCompile Include="..\..\RobotCore\main.c" />
+    <ClCompile Include="..\..\RobotCore\mems.c" />
+    <ClCompile Include="..\..\RobotCore\MotorDriver.c" />
+    <ClCompile Include="..\..\RobotCore\pid.c" />
+    <ClCompile Include="..\..\RobotCore\stm32f4xx_hal_msp.c" />
+    <ClCompile Include="..\..\RobotCore\stm32f4xx_it.c" />
+    <ClCompile Include="..\..\third_party\Drivers\BSP\Components\ili9341\ili9341.c" />
+    <ClCompile Include="..\..\third_party\Drivers\BSP\Components\l3gd20\l3gd20.c" />
+    <ClCompile Include="..\..\third_party\Drivers\BSP\Components\lsm303d\lsm303d.c" />
+    <ClCompile Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery.c" />
+    <ClCompile Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_eeprom.c" />
+    <ClCompile Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_gyroscope.c" />
+    <ClCompile Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_io.c" />
+    <ClCompile Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_lcd.c" />
+    <ClCompile Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_sdram.c" />
+    <ClCompile Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_ts.c" />
+    <ClCompile Include="..\..\third_party\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\RobotCore\l3gd20h.h" />
+    <ClInclude Include="..\..\RobotCore\main.h" />
+    <ClInclude Include="..\..\RobotCore\mems.h" />
+    <ClInclude Include="..\..\RobotCore\MotorDriver.h" />
+    <ClInclude Include="..\..\RobotCore\pid.h" />
+    <ClInclude Include="..\..\RobotCore\stm32f4xx_hal_conf.h" />
+    <ClInclude Include="..\..\RobotCore\stm32f4xx_it.h" />
+    <ClInclude Include="..\..\third_party\Drivers\BSP\Components\ili9341\ili9341.h" />
+    <ClInclude Include="..\..\third_party\Drivers\BSP\Components\l3gd20\l3gd20.h" />
+    <ClInclude Include="..\..\third_party\Drivers\BSP\Components\lsm303d\lsm303d.h" />
+    <ClInclude Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery.h" />
+    <ClInclude Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_eeprom.h" />
+    <ClInclude Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_gyroscope.h" />
+    <ClInclude Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_io.h" />
+    <ClInclude Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_lcd.h" />
+    <ClInclude Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_sdram.h" />
+    <ClInclude Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_ts.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\third_party\Drivers\BSP\Components\ili9341\Release_Notes.html" />
+    <None Include="..\..\third_party\Drivers\BSP\Components\l3gd20\Release_Notes.html" />
+    <None Include="..\..\third_party\Drivers\BSP\Components\lsm303dlhc\Release_Notes.html" />
+    <None Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\Release_Notes.html" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

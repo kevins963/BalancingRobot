@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="core">
+      <UniqueIdentifier>{304814b5-98c8-4d1c-a220-f4a1bf9bd154}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib">
+      <UniqueIdentifier>{c4d6ae04-fee1-4017-9bd8-b92b6db59436}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\components">
+      <UniqueIdentifier>{e1fc1bb6-fde1-4cad-9658-dc012a587c9a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\RobotCore\main.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\RobotCore\mems.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\RobotCore\stm32f4xx_hal_msp.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\RobotCore\stm32f4xx_it.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery.c">
+      <Filter>lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_eeprom.c">
+      <Filter>lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_gyroscope.c">
+      <Filter>lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_io.c">
+      <Filter>lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_lcd.c">
+      <Filter>lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_sdram.c">
+      <Filter>lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_ts.c">
+      <Filter>lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\third_party\Drivers\BSP\Components\l3gd20\l3gd20.c">
+      <Filter>lib\components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\third_party\Drivers\BSP\Components\ili9341\ili9341.c">
+      <Filter>lib\components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\third_party\Drivers\BSP\Components\lsm303d\lsm303d.c">
+      <Filter>lib\components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\third_party\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\RobotCore\MotorDriver.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\RobotCore\l3gd20h.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\RobotCore\pid.c">
+      <Filter>core</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\RobotCore\main.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RobotCore\mems.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RobotCore\stm32f4xx_hal_conf.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RobotCore\stm32f4xx_it.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_eeprom.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_gyroscope.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_io.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_lcd.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_sdram.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_ts.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\third_party\Drivers\BSP\Components\l3gd20\l3gd20.h">
+      <Filter>lib\components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\third_party\Drivers\BSP\Components\ili9341\ili9341.h">
+      <Filter>lib\components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\third_party\Drivers\BSP\Components\lsm303d\lsm303d.h">
+      <Filter>lib\components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RobotCore\MotorDriver.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RobotCore\l3gd20h.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RobotCore\pid.h">
+      <Filter>core</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\Release_Notes.html">
+      <Filter>lib</Filter>
+    </None>
+    <None Include="..\..\third_party\Drivers\BSP\Components\lsm303dlhc\Release_Notes.html">
+      <Filter>lib\components</Filter>
+    </None>
+    <None Include="..\..\third_party\Drivers\BSP\Components\l3gd20\Release_Notes.html">
+      <Filter>lib\components</Filter>
+    </None>
+    <None Include="..\..\third_party\Drivers\BSP\Components\ili9341\Release_Notes.html">
+      <Filter>lib\components</Filter>
+    </None>
+  </ItemGroup>
+</Project>
