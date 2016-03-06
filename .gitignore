@@ -1,0 +1,11 @@
+[Oo]bj/
+[Ee]xe/
+[Ll]ist/
+[Dd]ebug/
+
+/settings/
+/RobotCore/settings/
+
+*.suo
+*.sdf
+*.user
