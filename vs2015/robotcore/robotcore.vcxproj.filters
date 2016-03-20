@@ -78,6 +78,9 @@
     <ClCompile Include="..\..\RobotCore\pid.c">
       <Filter>core</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\RobotCore\hw_core.c">
+      <Filter>core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\RobotCore\main.h">
@@ -129,6 +132,9 @@
       <Filter>core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\RobotCore\pid.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RobotCore\hw_core.h">
       <Filter>core</Filter>
     </ClInclude>
   </ItemGroup>

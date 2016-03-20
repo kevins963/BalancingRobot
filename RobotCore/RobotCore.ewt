@@ -1092,30 +1092,12 @@
         </file>
       </group>
       <group>
-        <name>STM32F429I_DISCO</name>
+        <name>nucleo</name>
         <file>
-          <name>$PROJ_DIR$\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery.c</name>
+          <name>$PROJ_DIR$\..\third_party\Drivers\BSP\STM32F4xx_Nucleo_144\stm32f4xx_nucleo_144.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_eeprom.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_gyroscope.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_gyroscope.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_io.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_lcd.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_sdram.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_ts.c</name>
+          <name>$PROJ_DIR$\..\third_party\Drivers\BSP\STM32F4xx_Nucleo_144\stm32f4xx_nucleo_144.h</name>
         </file>
       </group>
     </group>
@@ -1298,6 +1280,9 @@
     </group>
     <group>
       <name>User</name>
+      <file>
+        <name>$PROJ_DIR$\Integers.h</name>
+      </file>
       <file>
         <name>$PROJ_DIR$\main.c</name>
       </file>

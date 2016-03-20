@@ -187,7 +187,7 @@
           <name>CCDefines</name>
           <state>USE_HAL_DRIVER</state>
           <state>STM32F429xx</state>
-          <state>USE_STM32F429I_DISCO</state>
+          <state>USE_STM32F4XX_NUCLEO_144</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
@@ -319,7 +319,7 @@
           <state>$PROJ_DIR$</state>
           <state>$PROJ_DIR$\..\third_party\Drivers\CMSIS\Device\ST\STM32F4xx\Include</state>
           <state>$PROJ_DIR$\..\third_party\Drivers\STM32F4xx_HAL_Driver\Inc</state>
-          <state>$PROJ_DIR$\..\third_party\Drivers\BSP\STM32F429I-Discovery</state>
+          <state>$PROJ_DIR$\..\third_party\Drivers\BSP\STM32F4xx_Nucleo_144</state>
           <state>$PROJ_DIR$\..\third_party\Drivers\BSP\Components\Common</state>
           <state>$PROJ_DIR$\..\third_party\Utilities\Log</state>
           <state>$PROJ_DIR$\..\third_party\Utilities\CPU</state>
@@ -1010,30 +1010,12 @@
         </file>
       </group>
       <group>
-        <name>STM32F429I_DISCO</name>
+        <name>nucleo</name>
         <file>
-          <name>$PROJ_DIR$\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery.c</name>
+          <name>$PROJ_DIR$\..\third_party\Drivers\BSP\STM32F4xx_Nucleo_144\stm32f4xx_nucleo_144.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_eeprom.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_gyroscope.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_gyroscope.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_io.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_lcd.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_sdram.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_ts.c</name>
+          <name>$PROJ_DIR$\..\third_party\Drivers\BSP\STM32F4xx_Nucleo_144\stm32f4xx_nucleo_144.h</name>
         </file>
       </group>
     </group>
@@ -1228,6 +1210,9 @@
     </group>
     <group>
       <name>User</name>
+      <file>
+        <name>$PROJ_DIR$\Integers.h</name>
+      </file>
       <file>
         <name>$PROJ_DIR$\main.c</name>
       </file>

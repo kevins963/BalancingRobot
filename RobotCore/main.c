@@ -40,7 +40,7 @@
 #include "mems.h"
 #include "pid.h"
 #include "motordriver.h"
-#include "stm32f429i_discovery_gyroscope.h"
+//#include "stm32f429i_discovery_gyroscope.h"
 #include <limits.h>
 #include <math.h>
 
@@ -85,6 +85,7 @@ sOrientationData;
 sTimer mAccelTimer;
 sTimer mLcdTimer;
 sTimer mMotorTimer;
+sTimer mLedTimer;
 int16_t mX, mY, mZ;
 float mXg, mYg, mZg;
 /* Private function prototypes -----------------------------------------------*/
@@ -181,40 +182,16 @@ int main(void)
     /* Add your application code here
         */
 
-    /* Configure LED3 and LED4 */
-    BSP_LED_Init(LED3);
-    BSP_LED_Init(LED4);
-  
-    /*##-1- LCD Initialization #################################################*/ 
-    /* Initialize the LCD */
-    BSP_LCD_Init();
-
-    /* Layer2 Init */
-    BSP_LCD_LayerDefaultInit(1, LCD_FRAME_BUFFER_LAYER1);
-    /* Set Foreground Layer */
-    BSP_LCD_SelectLayer(1);
-    /* Clear the LCD */
-    BSP_LCD_Clear(LCD_COLOR_WHITE);  
-    BSP_LCD_SetColorKeying(1, LCD_COLOR_WHITE);
-    BSP_LCD_SetLayerVisible(1, DISABLE);
-  
-    /* Layer1 Init */
-    BSP_LCD_LayerDefaultInit(0, LCD_FRAME_BUFFER_LAYER0);
-  
-    /* Set Foreground Layer */
-    BSP_LCD_SelectLayer(0);
- 
-    /* Enable The LCD */
-    BSP_LCD_DisplayOn();
-
-    /* Clear the LCD */
-    BSP_LCD_Clear(LCD_COLOR_WHITE);
+    //Config BSP
+    BSP_JOY_Init();
+    BSP_LED_Init( LED_GREEN );
+    BSP_LED_Init( LED_BLUE );
+    BSP_LED_Init( LED_RED );
 
     while( HAL_GetTick() < 3000 )
     { }
 
     Mems_Init();
-    BSP_GYRO_Init();
     MotorDriver_Init( &mMotorDriverB );
 
     /*##-2- Touch screen initialization ########################################*/
@@ -223,8 +200,6 @@ int main(void)
 
     /* Infinite loop */
   
-    BSP_LCD_SetTextColor(LCD_COLOR_RED);
-    BSP_LCD_DrawCircle(50, 50, 20);
     int lastTick = 0;
     int lastTick2 = 0;
     int x = 0;
@@ -232,22 +207,42 @@ int main(void)
     unsigned int color = 0xffffbb33;
     unsigned int rgb;
     char string[16];
-  
-    BSP_LCD_Clear( LCD_COLOR_BLACK );
-    BSP_LCD_SetBackColor( LCD_COLOR_BLACK );
 
-    maxX = BSP_LCD_GetXSize();
-    maxY = BSP_LCD_GetYSize();
-    
 
     Timer_Init( &mAccelTimer, 10 );
     Timer_Init( &mLcdTimer, 100 );
     Timer_Init( &mMotorTimer, 1 );
+    Timer_Init( &mLedTimer, 100 );
 
     Orientation_Init( &mOrientationData );
 
     Pid_Init( &mPidAngle, 1000.0F / 120.0F, 0, 0, 1000, -1000 );
 
+    while( 1 )
+    {
+      if( Timer_Run( &mLedTimer ) )
+      {
+        static int counterLed = 0;
+        
+        counterLed++;
+        
+        if( counterLed % 2 == 0 )
+        {
+            BSP_LED_Toggle( LED_GREEN );
+        }
+        if( counterLed % 4 == 0 )
+        {
+            BSP_LED_Toggle( LED_RED );
+        }
+        if( counterLed % 8 == 0 )
+        {
+            BSP_LED_Toggle( LED_BLUE );
+        }
+        
+        
+      }
+    }
+    /*
     while( 1 )
     {
         static int counter = 0;
@@ -258,7 +253,7 @@ int main(void)
         if( Timer_Run( &mAccelTimer ) )
         {
 
-            BSP_GYRO_GetXYZ( gyroBuf );
+            //BSP_GYRO_GetXYZ( gyroBuf );
 
             gyroCalibration[ 0 ] += gyroBuf[ 0 ];
             gyroCalibration[ 1 ] += gyroBuf[ 1 ];
@@ -376,6 +371,7 @@ int main(void)
             //BSP_LCD_DisplayStringAtLine( 6, string );
         }
     }
+    */
 }
 
 /**
@@ -499,20 +495,19 @@ uint8_t Timer_Run( sTimer *pTimer )
     return ret;
 }
 
-void DrawGraph( int16_t currentValue, int16_t lastValue, int16_t min, int16_t max, uint32_t color )
+/* COMPASS / ACCELERO IO functions */
+void    COMPASSACCELERO_IO_Init(void)
 {
-    int16_t scalar = ( max - min ) / maxX ;
-
-    int16_t xPos = currentPos % maxY;
-    int16_t y0Pos = currentValue < lastValue ? currentValue : lastValue;
-    int16_t y1Pos = currentValue > lastValue ? currentValue : lastValue;
-    int16_t length;
-    y0Pos = ( y0Pos / scalar ) + maxX/2;
-    y1Pos = ( y1Pos / scalar ) + maxX/2;
-    length = y1Pos - y0Pos + 1;   
-    
-    BSP_LCD_SetTextColor( color );    
-    BSP_LCD_DrawHLine(y0Pos, xPos, length);
+}
+void    COMPASSACCELERO_IO_ITConfig(void)
+{
+}
+void    COMPASSACCELERO_IO_Write(uint16_t DeviceAddr, uint8_t RegisterAddr, uint8_t Value)
+{
+}
+uint8_t COMPASSACCELERO_IO_Read(uint16_t DeviceAddr, uint8_t RegisterAddr)
+{
+  return 0;
 }
 
 

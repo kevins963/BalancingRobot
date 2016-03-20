@@ -3,7 +3,7 @@
 
 #include "stdint.h"
 
-#include "stm32f429i_discovery.h"
+//#include "stm32f429i_discovery.h"
 
 #include "bsp/components/lsm303d/lsm303d.h"
 
