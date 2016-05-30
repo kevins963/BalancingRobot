@@ -43,6 +43,8 @@
 //#include "stm32f429i_discovery_gyroscope.h"
 #include <limits.h>
 #include <math.h>
+#include <stdint.h>
+#include "l3gd20h.h"
 
 #ifndef M_PI
 #define M_PI       3.14159265358979323846   // pi
@@ -54,6 +56,8 @@
 /** @addtogroup Templates
   * @{
   */
+
+#define ACCEL_TIMER_MSEC ( 10 )
 
 /* Private typedef -----------------------------------------------------------*/
 typedef struct  
@@ -68,10 +72,19 @@ typedef struct orientation
     float roll;
     float yaw;
 
+    int16_t pitchWhole;
+    int16_t rollWhole;
+    int16_t yawWhole;
+    
+    float pitchAccDeg;
+    float rollAccDeg;
+    float yawAccDeg;
 
-    float pitchAcc;
-    float rollAcc;
-    float yawAcc;
+
+    
+    float pitchAccPi;
+    float rollAccPi;
+    float yawAccPi;
 
     float gyroData[ 3 ];
     float gyroDataCalibration[ 3 ];
@@ -95,6 +108,7 @@ void Timer_Init( sTimer *pTimer, uint32_t period );
 uint8_t Timer_Run( sTimer *pTimer );
 sMotorDriver mMotorDriverB;
 
+GYRO_DrvTypeDef *mpGyroDriver = &L3GD20HDrv;
 
 int16_t maxX, maxY, currentPos = 0;
 /* Private functions ---------------------------------------------------------*/
@@ -106,6 +120,9 @@ sPidData mPidAngle;
   * @param  None
   * @retval None
   */
+void BSP_INIT_GYRO( void );
+void BSP_GYRO_GetXYZ(float * gyroBuf);
+
 void DrawGraph( int16_t currentValue, int16_t lastValue, int16_t min, int16_t max, uint32_t color );
 
 void Orientation_Init( sOrientationData * data );
@@ -121,7 +138,7 @@ void Orientation_Calc1( sOrientationData * data );
 
 void Orientation_Calc1( sOrientationData * data )
 {
-    static float dt = 0.01f;
+    static float dt = (float)ACCEL_TIMER_MSEC / 1000.0f;
     
     float aX, aY, aZ;
     // Integrate the gyroscope data -> int(angularSpeed) = angle
@@ -130,18 +147,21 @@ void Orientation_Calc1( sOrientationData * data )
     aY = data->accelData[ 1 ];
     aZ = data->accelData[ 2 ];
 
-    data->pitchAcc = atan2f( aY, sqrtf( aX * aX + aZ * aZ ) );
-    data->rollAcc = atan2f( -aX, aZ );
-    data->pitchAcc = data->pitchAcc * 180.0f / M_PI;
-    data->rollAcc = data->rollAcc * 180.0f / M_PI;
+    data->pitchAccPi = atan2f( aY, sqrtf( aX * aX + aZ * aZ ) );
+    data->rollAccPi = atan2f( aX, sqrtf( aY * aY + aZ * aZ ) );
+    data->pitchAccDeg = data->pitchAccPi * 180.0f / M_PI;
+    data->rollAccDeg = data->rollAccPi * 180.0f / M_PI;
 
     float gyroPercent = 0.98f;
     float accelPercent = 1.0f - gyroPercent;
     
-    data->pitch = ( ( data->pitch + data->gyroData[ 0 ] * dt ) * gyroPercent ) + ( data->pitchAcc * accelPercent ); // Angle around the X-axis
-    data->roll  = ( ( data->roll  + data->gyroData[ 1 ] * dt ) * gyroPercent ) + ( data->rollAcc  * accelPercent );
+    data->pitch = ( ( data->pitch + data->gyroData[ 0 ] * dt ) * gyroPercent ) + ( data->pitchAccDeg * accelPercent ); // Angle around the X-axis
+    data->roll  = ( ( data->roll  - data->gyroData[ 1 ] * dt ) * gyroPercent ) + ( data->rollAccDeg  * accelPercent );
     data->yaw   = ( data->gyroData[ 2 ] ) * dt; // Angle around the X-axis
 
+    data->pitchWhole = data->pitch;
+    data->rollWhole = data->roll;
+    data->yawWhole = data->yaw;
     
     
                                                                // Sensitivity = -2 to 2 G at 16Bit -> 2G = 32768 && 0.5G = 8192
@@ -192,6 +212,7 @@ int main(void)
     { }
 
     Mems_Init();
+	BSP_INIT_GYRO();
     MotorDriver_Init( &mMotorDriverB );
 
     /*##-2- Touch screen initialization ########################################*/
@@ -207,42 +228,43 @@ int main(void)
     unsigned int color = 0xffffbb33;
     unsigned int rgb;
     char string[16];
+    float sampleRate;
 
-
-    Timer_Init( &mAccelTimer, 10 );
+    Timer_Init( &mAccelTimer, ACCEL_TIMER_MSEC );
     Timer_Init( &mLcdTimer, 100 );
     Timer_Init( &mMotorTimer, 1 );
     Timer_Init( &mLedTimer, 100 );
 
     Orientation_Init( &mOrientationData );
 
-    Pid_Init( &mPidAngle, 1000.0F / 120.0F, 0, 0, 1000, -1000 );
+    sampleRate = ( 1000.0f / ((float)ACCEL_TIMER_MSEC) );
+    Pid_Init( &mPidAngle, 100, 0, 0, sampleRate, 1000, 1000 );
 
-    while( 1 )
-    {
-      if( Timer_Run( &mLedTimer ) )
-      {
-        static int counterLed = 0;
-        
-        counterLed++;
-        
-        if( counterLed % 2 == 0 )
-        {
-            BSP_LED_Toggle( LED_GREEN );
-        }
-        if( counterLed % 4 == 0 )
-        {
-            BSP_LED_Toggle( LED_RED );
-        }
-        if( counterLed % 8 == 0 )
-        {
-            BSP_LED_Toggle( LED_BLUE );
-        }
-        
-        
-      }
-    }
-    /*
+//    while( 1 )
+//    {
+//      if( Timer_Run( &mLedTimer ) )
+//      {
+//        static int counterLed = 0;
+//        
+//        counterLed++;
+//        
+//        if( counterLed % 2 == 0 )
+//        {
+//            BSP_LED_Toggle( LED_GREEN );
+//        }
+//        if( counterLed % 4 == 0 )
+//        {
+//            BSP_LED_Toggle( LED_RED );
+//        }
+//        if( counterLed % 8 == 0 )
+//        {
+//            BSP_LED_Toggle( LED_BLUE );
+//        }
+//        
+//        
+//      }
+//    }
+    
     while( 1 )
     {
         static int counter = 0;
@@ -253,7 +275,7 @@ int main(void)
         if( Timer_Run( &mAccelTimer ) )
         {
 
-            //BSP_GYRO_GetXYZ( gyroBuf );
+            BSP_GYRO_GetXYZ( gyroBuf );
 
             gyroCalibration[ 0 ] += gyroBuf[ 0 ];
             gyroCalibration[ 1 ] += gyroBuf[ 1 ];
@@ -283,8 +305,6 @@ int main(void)
             static float lastOut, currentOut;
             Mems_GetXYZ(buf);
             BSP_GYRO_GetXYZ( gyroBuf );
-            //DrawGraph( buf[ 1 ], mY, LCD_COLOR_GREEN );
-            //DrawGraph( buf[ 2 ], mZ, LCD_COLOR_BLUE );
 
             mX = buf[ 0 ];
             mY = buf[ 1 ];
@@ -303,15 +323,24 @@ int main(void)
             mOrientationData.gyroData[ 2 ] = ( gyroBuf[ 2 ] - mOrientationData.gyroDataCalibration[ 2 ] );
 
             float lastRoll = mOrientationData.roll;
-            float lastRollAcc = mOrientationData.rollAcc;
+            float lastRollAcc = mOrientationData.rollAccDeg;
             
             Orientation_Calc1( &mOrientationData );
 
             lastOut = currentOut;
             currentOut = Pid_Run( &mPidAngle, 0 - mOrientationData.roll );
             
-            if( mOrientationData.roll > 120 || 
-                mOrientationData.roll < -120 )
+            if( currentOut > 20 )
+            {
+              currentOut = currentOut < 100 ? 100 : currentOut;
+            } 
+            else if( currentOut < -20 )
+            {
+              currentOut = currentOut > -100 ? -100 : currentOut;
+            }
+            
+            if( mOrientationData.roll > 50 || 
+                mOrientationData.roll < -50 )
             {
                 MotorDriver_SetSpeed( &mMotorDriverB, 0 );
             }
@@ -320,58 +349,20 @@ int main(void)
                 MotorDriver_SetSpeed( &mMotorDriverB, currentOut );
             }
             
-            DrawGraph( INT16_MIN, INT16_MAX, INT16_MIN, INT16_MAX, LCD_COLOR_BLACK );
-            //DrawGraph( (int16_t)(mOrientationData.roll * 10), (int16_t)(lastRoll * 10), -1800, 1800, LCD_COLOR_RED );
-            //DrawGraph( ( int16_t )( mOrientationData.rollAcc * 10 ), ( int16_t )( lastRollAcc * 10 ), -1800, 1800, LCD_COLOR_BLUE );
-            DrawGraph( ( int16_t )( currentOut / 2 ),(int16_t)( lastOut/2 ), mPidAngle.limitMin, mPidAngle.limitMax, LCD_COLOR_GREEN );
-            
-            currentPos++;
-            
-            DrawGraph( INT16_MIN, INT16_MAX, INT16_MIN, INT16_MAX, LCD_COLOR_GREEN );
-            //sprintf( string, "%d", mZ );
-            //BSP_LCD_ClearStringLine( 3 );
-            //BSP_LCD_DisplayStringAtLine( 3, string );
-        }
-
-        if( Timer_Run( &mLcdTimer ) )
-        {
-
-//            BSP_LCD_SetTextColor( LCD_COLOR_RED ); 
-//            ////color+=0x030201;
-//            sprintf( string, "%d", (int16_t) mOrientationData.pitch );
-//            BSP_LCD_ClearStringLine( 1 );
-//            BSP_LCD_DisplayStringAtLine( 1, string );
-//
-//            sprintf( string, "%d", ( int16_t ) mOrientationData.roll );
-//            BSP_LCD_ClearStringLine( 2 );
-//            BSP_LCD_DisplayStringAtLine( 2, string );
-//
-//            sprintf( string, "%d", ( int16_t ) mOrientationData.yaw );
-//            BSP_LCD_ClearStringLine( 3 );
-//            BSP_LCD_DisplayStringAtLine( 3, string );
-//
-//            sprintf( string, "%d", ( int16_t )mOrientationData.pitchAcc );
-//            BSP_LCD_ClearStringLine( 4 );
-//            BSP_LCD_DisplayStringAtLine( 4, string );
-//
-//            sprintf( string, "%d", ( int16_t )mOrientationData.rollAcc );
-//            BSP_LCD_ClearStringLine( 5 );
-//            BSP_LCD_DisplayStringAtLine( 5, string );
-
-            //sprintf( string, "%d", (int)mXg );
-            //BSP_LCD_ClearStringLine( 4 );
-            //BSP_LCD_DisplayStringAtLine( 4, string );
-
-            //sprintf( string, "%d", (int)mYg );
-            //BSP_LCD_ClearStringLine( 5 );
-            //BSP_LCD_DisplayStringAtLine( 5, string );
-
-            //sprintf( string, "%d", (int)mZg );
-            //BSP_LCD_ClearStringLine( 6 );
-            //BSP_LCD_DisplayStringAtLine( 6, string );
+//            DrawGraph( INT16_MIN, INT16_MAX, INT16_MIN, INT16_MAX, LCD_COLOR_BLACK );
+//            //DrawGraph( (int16_t)(mOrientationData.roll * 10), (int16_t)(lastRoll * 10), -1800, 1800, LCD_COLOR_RED );
+//            //DrawGraph( ( int16_t )( mOrientationData.rollAcc * 10 ), ( int16_t )( lastRollAcc * 10 ), -1800, 1800, LCD_COLOR_BLUE );
+//            DrawGraph( ( int16_t )( currentOut / 2 ),(int16_t)( lastOut/2 ), mPidAngle.limitMin, mPidAngle.limitMax, LCD_COLOR_GREEN );
+//            
+//            currentPos++;
+//            
+//            DrawGraph( INT16_MIN, INT16_MAX, INT16_MIN, INT16_MAX, LCD_COLOR_GREEN );
+//            //sprintf( string, "%d", mZ );
+//            //BSP_LCD_ClearStringLine( 3 );
+//            //BSP_LCD_DisplayStringAtLine( 3, string );
         }
     }
-    */
+    
 }
 
 /**
@@ -496,20 +487,226 @@ uint8_t Timer_Run( sTimer *pTimer )
 }
 
 /* COMPASS / ACCELERO IO functions */
-void    COMPASSACCELERO_IO_Init(void)
+/******************************* I2C Routines**********************************/
+/**
+* @brief  Configures I2C interface.
+*/
+static I2C_HandleTypeDef    I2cHandle;
+
+/*############################# I2C1 #########################################*/
+/* I2C clock speed configuration (in Hz) */
+#ifndef BSP_I2C_SPEED
+#define BSP_I2C_SPEED                            100000
+#endif /* BSP_I2C_SPEED */
+
+/* I2C peripheral configuration defines (control interface of the audio codec) */
+#define DISCOVERY_I2Cx                            I2C2
+#define DISCOVERY_I2Cx_CLK_ENABLE()               __I2C2_CLK_ENABLE()
+#define DISCOVERY_I2Cx_SCL_SDA_GPIO_CLK_ENABLE()  __GPIOF_CLK_ENABLE()
+#define DISCOVERY_I2Cx_SCL_SDA_AF                 GPIO_AF4_I2C2
+#define DISCOVERY_I2Cx_SCL_SDA_GPIO_PORT          GPIOF
+#define DISCOVERY_I2Cx_SCL_PIN                    GPIO_PIN_1
+#define DISCOVERY_I2Cx_SDA_PIN                    GPIO_PIN_0
+
+#define DISCOVERY_I2Cx_FORCE_RESET()              __I2C2_FORCE_RESET()
+#define DISCOVERY_I2Cx_RELEASE_RESET()            __I2C2_RELEASE_RESET()
+
+/* I2C interrupt requests */
+#define DISCOVERY_I2Cx_EV_IRQn                    I2C2_EV_IRQn
+#define DISCOVERY_I2Cx_ER_IRQn                    I2C2_ER_IRQn
+
+/* Maximum Timeout values for flags waiting loops. These timeouts are not based
+on accurate values, they just guarantee that the application will not remain
+stuck if the SPI communication is corrupted.
+You may modify these timeout values depending on CPU frequency and application
+conditions (interrupts routines ...). */
+#define I2Cx_TIMEOUT_MAX    0x1000 /*<! The value of the maximal timeout for BUS waiting loops */
+#define I2Cx_MAX_COMMUNICATION_FREQ             ((uint32_t) 100000)
+
+uint32_t I2cxTimeout = I2Cx_TIMEOUT_MAX;
+
+/* I2Cx bus function */
+static void    I2Cx_Init(void);
+static void    I2Cx_WriteData(uint16_t Addr, uint8_t Reg, uint8_t Value);
+static uint8_t I2Cx_ReadData(uint16_t Addr, uint8_t Reg);
+static void    I2Cx_Error (void);
+static void    I2Cx_MspInit(I2C_HandleTypeDef *hi2c);
+
+/* Link function for COMPASS / ACCELERO peripheral */
+void    COMPASSACCELERO_IO_Init(void);
+void    COMPASSACCELERO_IO_ITConfig(void);
+void    COMPASSACCELERO_IO_Write(uint16_t DeviceAddr, uint8_t RegisterAddr, uint8_t Value);
+uint8_t COMPASSACCELERO_IO_Read(uint16_t DeviceAddr, uint8_t RegisterAddr);
+
+static void I2Cx_Init(void)
 {
-}
-void    COMPASSACCELERO_IO_ITConfig(void)
-{
-}
-void    COMPASSACCELERO_IO_Write(uint16_t DeviceAddr, uint8_t RegisterAddr, uint8_t Value)
-{
-}
-uint8_t COMPASSACCELERO_IO_Read(uint16_t DeviceAddr, uint8_t RegisterAddr)
-{
-  return 0;
+	if (HAL_I2C_GetState(&I2cHandle) == HAL_I2C_STATE_RESET)
+	{
+		I2cHandle.Instance = DISCOVERY_I2Cx;
+		I2cHandle.Init.OwnAddress1 = 0x00;
+		I2cHandle.Init.ClockSpeed = I2Cx_MAX_COMMUNICATION_FREQ;
+		I2cHandle.Init.DutyCycle = I2C_DUTYCYCLE_2;
+		I2cHandle.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+		I2cHandle.Init.DualAddressMode = I2C_DUALADDRESS_DISABLED;
+		I2cHandle.Init.OwnAddress2 = 0x00;
+		I2cHandle.Init.GeneralCallMode = I2C_GENERALCALL_DISABLED;
+		I2cHandle.Init.NoStretchMode = I2C_NOSTRETCH_DISABLED;
+
+		/* Init the I2C */
+		I2Cx_MspInit(&I2cHandle);
+		HAL_I2C_Init(&I2cHandle);
+	}
 }
 
+/**
+* @brief  Writes a value in a register of the device through BUS.
+* @param  Addr: Device address on BUS Bus.
+* @param  Reg: The target register address to write
+* @param  Value: The target register value to be written
+*/
+static void I2Cx_WriteData(uint16_t Addr, uint8_t Reg, uint8_t Value)
+{
+	HAL_StatusTypeDef status = HAL_OK;
+
+	status = HAL_I2C_Mem_Write(&I2cHandle, Addr, (uint16_t)Reg, I2C_MEMADD_SIZE_8BIT, &Value, 1, I2cxTimeout);
+
+	/* Check the communication status */
+	if (status != HAL_OK)
+	{
+		/* Execute user timeout callback */
+		I2Cx_Error();
+	}
+}
+
+/**
+* @brief  Reads a register of the device through BUS.
+* @param  Addr: Device address on BUS Bus.
+* @param  Reg: The target register address to write
+* @retval Data read at register address
+*/
+static uint8_t I2Cx_ReadData(uint16_t Addr, uint8_t Reg)
+{
+	HAL_StatusTypeDef status = HAL_OK;
+	uint8_t value = 0;
+
+	status = HAL_I2C_Mem_Read(&I2cHandle, Addr, Reg, I2C_MEMADD_SIZE_8BIT, &value, 1, I2cxTimeout);
+
+	/* Check the communication status */
+	if (status != HAL_OK)
+	{
+		/* Execute user timeout callback */
+		I2Cx_Error();
+	}
+	return value;
+}
+
+/**
+* @brief  I2Cx error treatment function.
+*/
+static void I2Cx_Error(void)
+{
+	/* De-initialize the I2C comunication BUS */
+	HAL_I2C_DeInit(&I2cHandle);
+
+	/* Re- Initiaize the I2C comunication BUS */
+	I2Cx_Init();
+}
+
+/**
+* @brief  I2Cx MSP Init.
+* @param  hi2c: I2C handle
+*/
+static void I2Cx_MspInit(I2C_HandleTypeDef *hi2c)
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+
+	/* Enable the I2C peripheral */
+	DISCOVERY_I2Cx_CLK_ENABLE();
+
+	/* Enable SCK and SDA GPIO clocks */
+	DISCOVERY_I2Cx_SCL_SDA_GPIO_CLK_ENABLE();
+
+	/* I2Cx SD1 & SCK pin configuration */
+	GPIO_InitStructure.Pin = DISCOVERY_I2Cx_SDA_PIN | DISCOVERY_I2Cx_SCL_PIN;
+	GPIO_InitStructure.Mode = GPIO_MODE_AF_OD;
+	GPIO_InitStructure.Pull = GPIO_NOPULL;
+	GPIO_InitStructure.Speed = GPIO_SPEED_FAST;
+	GPIO_InitStructure.Alternate = DISCOVERY_I2Cx_SCL_SDA_AF;
+
+	HAL_GPIO_Init(DISCOVERY_I2Cx_SCL_SDA_GPIO_PORT, &GPIO_InitStructure);
+
+	/* Force the I2C peripheral clock reset */
+	DISCOVERY_I2Cx_FORCE_RESET();
+
+	/* Release the I2C peripheral clock reset */
+	DISCOVERY_I2Cx_RELEASE_RESET();
+
+	/* Enable and set I2Cx Interrupt to the highest priority */
+	HAL_NVIC_SetPriority(DISCOVERY_I2Cx_EV_IRQn, 0, 0);
+	HAL_NVIC_EnableIRQ(DISCOVERY_I2Cx_EV_IRQn);
+
+	/* Enable and set I2Cx Interrupt to the highest priority */
+	HAL_NVIC_SetPriority(DISCOVERY_I2Cx_ER_IRQn, 0, 0);
+	HAL_NVIC_EnableIRQ(DISCOVERY_I2Cx_ER_IRQn);
+}
+void COMPASSACCELERO_IO_Init(void)
+{
+	I2Cx_Init();
+}
+
+/**
+* @brief  Configures COMPASS / ACCELERO click IT.
+*/
+void COMPASSACCELERO_IO_ITConfig(void)
+{
+	
+}
+
+void COMPASSACCELERO_IO_Write(uint16_t DeviceAddr, uint8_t RegisterAddr, uint8_t Value)
+{
+	I2Cx_WriteData(DeviceAddr, RegisterAddr, Value);
+}
+
+uint8_t COMPASSACCELERO_IO_Read(uint16_t DeviceAddr, uint8_t RegisterAddr)
+{
+  return I2Cx_ReadData(DeviceAddr, RegisterAddr);
+}
+
+
+void GYRO_IO_Init(void)
+{
+	I2Cx_Init();
+}
+
+/**
+* @brief  Configures COMPASS / ACCELERO click IT.
+*/
+void GYRO_IO_DeInit(void)
+{
+
+}
+
+void GYRO_IO_Write(uint16_t DeviceAddr, uint8_t RegisterAddr, uint8_t Value)
+{
+	I2Cx_WriteData(DeviceAddr, RegisterAddr, Value);
+}
+
+uint8_t GYRO_IO_Read(uint16_t DeviceAddr, uint8_t RegisterAddr)
+{
+	return I2Cx_ReadData(DeviceAddr, RegisterAddr);
+}
+
+
+void BSP_INIT_GYRO()
+{
+	mpGyroDriver->Init((L3GD20H_CTRL1_PD_NORMAL | L3GD20H_CTRL1_XEN | L3GD20H_CTRL1_YEN | L3GD20H_CTRL1_ZEN | L3GD20H_CTRL1_BW_MED_LOW | L3GD20H_CTRL1_RATE_800_50) |
+		((L3GD20H_CTRL4_FS_250) << 8));
+}
+
+void BSP_GYRO_GetXYZ(float * gyroBuf)
+{
+	mpGyroDriver->GetXYZ(gyroBuf);
+}
 
 /**
   * @}

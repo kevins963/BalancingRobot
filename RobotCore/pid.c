@@ -38,28 +38,28 @@
 /* public functions declaration */
 /********************************/
 
-void Pid_Init( sPidData * pPidData, float kp, float ki, float kd, float limitMax, float limitMin )
+void Pid_Init( sPidData * pPidData, float kp, float ki, float kd, float sampleRate, float outLimit, float integralAccLimit )
 {
-    pPidData->kp = kp;
-    pPidData->ki = ki;
-    pPidData->kd = kd;
+	pPidData->sampleRate = sampleRate;
+	pPidData->kiDefault = ki;
+	pPidData->kdDefault = kd;
 
-    pPidData->a0 = kp + ki + kd;
-    pPidData->a1 = ( -pPidData->kp ) - ( 2.0f * pPidData->kd );
-    pPidData->a2 = pPidData->kd;
+	pPidData->kp = kp;
+	pPidData->ki = pPidData->kiDefault / sampleRate;
+	pPidData->kd = pPidData->kdDefault / sampleRate;
 
-    pPidData->prev2InErr = 0;
-    pPidData->prevInErr = 0;
-    pPidData->prevOut = 0;
+	pPidData->prevError = 0;
+	pPidData->intAccError = 0;
 
-    pPidData->limitMax = limitMax;
-    pPidData->limitMin = limitMin;
+    pPidData->outLimit = outLimit;
+    pPidData->integralAccLimit = integralAccLimit;
 }
 
 float Pid_Run( sPidData * pPidData, float inputError )
 {
     //
     float out;
+	float diffError;
 
     /* out = (kp + ki + kd) * inErr +
              ( -kp - 2*kd ) inErr1
@@ -71,28 +71,37 @@ float Pid_Run( sPidData * pPidData, float inputError )
              kd * inErr2 +
              (kp + ki + kd) * inErr1 +
              ( -kp - 2*kd ) inErr2
-             kd * inErr3 */
-    out = ( pPidData->a0 * inputError ) + 
-    ( pPidData->a1 * pPidData->prevInErr ) + 
-    ( pPidData->a2 * pPidData->prev2InErr ) + 
-    ( pPidData->prevOut );
+             kd * inErr3 + out2 */
+	pPidData->intAccError = Pid_Bound(pPidData->intAccError + inputError, pPidData->integralAccLimit, -pPidData->integralAccLimit);
+	
+	diffError = inputError - pPidData->prevError;
 
-    if( out > pPidData->limitMax )
-    {
-        out = pPidData->limitMax;
-    }
-    else if( out < pPidData->limitMin )
-    {
-        out = pPidData->limitMin;
-    }
+	out = pPidData->kp * inputError +
+		pPidData->ki * pPidData->intAccError +
+		pPidData->kd * diffError;
+
+	out = Pid_Bound(out, pPidData->outLimit, -pPidData->outLimit);
 
     //update hold vars
-    pPidData->prev2InErr = pPidData->prevInErr;
-    pPidData->prevInErr = inputError;
-    pPidData->prevOut = out;
+    pPidData->prevError = inputError;
 
     return ( out );
 }
+
+float Pid_Bound(float val, float upperLimit, float lowerLimit)
+{
+	if (val > upperLimit)
+	{
+		return upperLimit;
+	}
+	else if (val < lowerLimit)
+	{
+		return lowerLimit;
+	}
+
+	return val;
+}
+
 
 /*********************************/
 /* private functions declaration */

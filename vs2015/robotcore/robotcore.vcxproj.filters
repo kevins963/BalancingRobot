@@ -30,33 +30,6 @@
     <ClCompile Include="..\..\RobotCore\mems.c">
       <Filter>core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\RobotCore\stm32f4xx_hal_msp.c">
-      <Filter>core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\RobotCore\stm32f4xx_it.c">
-      <Filter>core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery.c">
-      <Filter>lib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_eeprom.c">
-      <Filter>lib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_gyroscope.c">
-      <Filter>lib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_io.c">
-      <Filter>lib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_lcd.c">
-      <Filter>lib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_sdram.c">
-      <Filter>lib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_ts.c">
-      <Filter>lib</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\third_party\Drivers\BSP\Components\l3gd20\l3gd20.c">
       <Filter>lib\components</Filter>
     </ClCompile>
@@ -81,6 +54,15 @@
     <ClCompile Include="..\..\RobotCore\hw_core.c">
       <Filter>core</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\third_party\Drivers\BSP\STM32F4xx_Nucleo_144\stm32f4xx_nucleo_144.c">
+      <Filter>lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\third_party\Projects\STM32F429ZI-Nucleo\Demonstrations\Src\stm32f4xx_it.c">
+      <Filter>lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\third_party\Projects\STM32F429ZI-Nucleo\Demonstrations\Src\system_stm32f4xx.c">
+      <Filter>lib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\RobotCore\main.h">
@@ -88,33 +70,6 @@
     </ClInclude>
     <ClInclude Include="..\..\RobotCore\mems.h">
       <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\RobotCore\stm32f4xx_hal_conf.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\RobotCore\stm32f4xx_it.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery.h">
-      <Filter>lib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_eeprom.h">
-      <Filter>lib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_gyroscope.h">
-      <Filter>lib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_io.h">
-      <Filter>lib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_lcd.h">
-      <Filter>lib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_sdram.h">
-      <Filter>lib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\stm32f429i_discovery_ts.h">
-      <Filter>lib</Filter>
     </ClInclude>
     <ClInclude Include="..\..\third_party\Drivers\BSP\Components\l3gd20\l3gd20.h">
       <Filter>lib\components</Filter>
@@ -137,6 +92,15 @@
     <ClInclude Include="..\..\RobotCore\hw_core.h">
       <Filter>core</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\third_party\Drivers\BSP\STM32F4xx_Nucleo_144\stm32f4xx_nucleo_144.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\third_party\Projects\STM32F429ZI-Nucleo\Demonstrations\Inc\stm32f4xx_hal_conf.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\third_party\Projects\STM32F429ZI-Nucleo\Demonstrations\Inc\stm32f4xx_it.h">
+      <Filter>lib</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\Release_Notes.html">
@@ -150,6 +114,9 @@
     </None>
     <None Include="..\..\third_party\Drivers\BSP\Components\ili9341\Release_Notes.html">
       <Filter>lib\components</Filter>
+    </None>
+    <None Include="..\..\third_party\Projects\STM32F429ZI-Nucleo\Demonstrations\EWARM\startup_stm32f429xx.s">
+      <Filter>lib</Filter>
     </None>
   </ItemGroup>
 </Project>

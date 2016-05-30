@@ -27,20 +27,19 @@
 
 typedef struct  
 {
+	float sampleRate;
+	float kiDefault;
+	float kdDefault;
+
     float kp;
     float ki;
     float kd;
 
-    float a0;
-    float a1;
-    float a2;
+	float prevError;
+	float intAccError;
 
-    float prevOut;
-    float prevInErr;
-    float prev2InErr;
-
-    float limitMax;
-    float limitMin;
+    float outLimit;
+    float integralAccLimit;
 }
 sPidData;
 /****************/
@@ -55,7 +54,9 @@ sPidData;
 /* public function definition */
 /******************************/
 
-void Pid_Init( sPidData * pPidData, float kp, float ki, float kd, float limitMax, float limitMin );
+void Pid_Init( sPidData * pPidData, float kp, float ki, float kd, float sampleRate, float outLimit, float integralAccLimit);
 
 float Pid_Run( sPidData * pPidData, float inputError );
+
+float Pid_Bound(float val, float upperLimit, float lowerLimit);
 #endif /* pid_h__ */

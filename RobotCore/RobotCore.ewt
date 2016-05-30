@@ -1050,9 +1050,6 @@
   </configuration>
   <group>
     <name>Config</name>
-    <file>
-      <name>$PROJ_DIR$\Config\stm32f4xx_hal_conf.h</name>
-    </file>
   </group>
   <group>
     <name>Core</name>
@@ -1103,9 +1100,6 @@
     </group>
     <group>
       <name>CMSIS</name>
-      <file>
-        <name>$PROJ_DIR$\system_stm32f4xx.c</name>
-      </file>
     </group>
     <group>
       <name>STM32F4xx_HAL_Driver</name>
@@ -1275,7 +1269,10 @@
     <group>
       <name>EWARM</name>
       <file>
-        <name>$PROJ_DIR$\startup_stm32f429xx.s</name>
+        <name>$PROJ_DIR$\..\third_party\Projects\STM32F429ZI-Nucleo\Demonstrations\EWARM\startup_stm32f429xx.s</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\third_party\Projects\STM32F429ZI-Nucleo\Demonstrations\EWARM\stm32f429xx_flash.icf</name>
       </file>
     </group>
     <group>
@@ -1302,20 +1299,17 @@
         <name>$PROJ_DIR$\MotorDriver.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\stm32f4xx_hal_msp.c</name>
+        <name>$PROJ_DIR$\..\third_party\Projects\STM32F429ZI-Nucleo\Demonstrations\Inc\stm32f4xx_hal_conf.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\stm32f4xx_it.c</name>
+        <name>$PROJ_DIR$\..\third_party\Projects\STM32F429ZI-Nucleo\Demonstrations\Src\stm32f4xx_it.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\stm32f4xx_it.h</name>
+        <name>$PROJ_DIR$\..\third_party\Projects\STM32F429ZI-Nucleo\Demonstrations\Inc\stm32f4xx_it.h</name>
       </file>
-    </group>
-  </group>
-  <group>
-    <name>Middleware</name>
-    <group>
-      <name>stemwin</name>
+      <file>
+        <name>$PROJ_DIR$\..\third_party\Projects\STM32F429ZI-Nucleo\Demonstrations\Src\system_stm32f4xx.c</name>
+      </file>
     </group>
   </group>
 </project>

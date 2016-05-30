@@ -105,3 +105,4 @@ void Mems_GetXYZ( int16_t *pDataXYZ )
         mpAccelDriverInstance->GetXYZ( pDataXYZ );
     }
 }
+

@@ -211,7 +211,7 @@ void L3GD20_INT1InterruptConfig(uint16_t Int1Config)
   GYRO_IO_Read(&ctrl3, L3GD20_CTRL_REG3_ADDR, 1);
   
   ctrl_cfr &= 0x80;
-  ctrl_cfr |= ((uint8_t) Int1Config >> 8);
+  ctrl_cfr |= ((uint8_t) (Int1Config >> 8));
   
   ctrl3 &= 0xDF;
   ctrl3 |= ((uint8_t) Int1Config);   

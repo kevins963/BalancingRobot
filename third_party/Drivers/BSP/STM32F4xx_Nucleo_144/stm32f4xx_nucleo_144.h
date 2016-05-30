@@ -49,6 +49,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
+#include "stdint.h"
    
 /* To be defined only if the board is provided with the related shield */
 /* https://www.adafruit.com/products/802 */

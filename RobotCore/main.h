@@ -44,6 +44,7 @@
 #include "stm32f4xx_nucleo_144.h"
 #include "mems.h"
 
+
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 #define LCD_FRAME_BUFFER_LAYER0                  (LCD_FRAME_BUFFER+0x130000)
