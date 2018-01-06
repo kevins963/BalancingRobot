@@ -18,10 +18,17 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="circle_buffer.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="circle_buffer.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F02333B8-206E-4312-B139-71A98E6369BD}</ProjectGuid>
     <RootNamespace>robotcore</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <ProjectName>core</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -87,7 +94,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)..\..\third_party\Drivers\CMSIS\Device\ST\STM32F4xx\Include;$(ProjectDir)..\..\third_party\Drivers\STM32F4xx_HAL_Driver\Inc;$(ProjectDir)..\..\third_party\Drivers\BSP\STM32F4xx_Nucleo_144;$(ProjectDir)..\..\third_party\Drivers\BSP\Components\Common;$(ProjectDir)..\..\third_party\Utilities\Log;$(ProjectDir)..\..\third_party\Utilities\CPU;$(ProjectDir)..\..\third_party\Drivers\;$(ProjectDir)..\..\third_party\Projects\STM32F429ZI-Nucleo\Demonstrations\Inc;$(ProjectDir)..\..\third_party\Drivers\CMSIS\Include;$(ProjectDir)..\..\RobotCore;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)..\..\third_party\Drivers\CMSIS\Device\ST\STM32F4xx\Include;$(ProjectDir)..\..\third_party\Drivers\STM32F4xx_HAL_Driver\Inc;$(ProjectDir)..\..\third_party\Drivers\BSP\STM32F4xx_Nucleo_144;$(ProjectDir)..\..\third_party\Drivers\BSP\Components\Common;$(ProjectDir)..\..\third_party\Utilities\Log;$(ProjectDir)..\..\third_party\Utilities\CPU;$(ProjectDir)..\..\third_party\Drivers\;$(ProjectDir)..\..\third_party\Projects\STM32F429ZI-Nucleo\Demonstrations\Inc;$(ProjectDir)..\..\third_party\Drivers\CMSIS\Include;$(ProjectDir)..\..\robot\core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>STM32F429xx;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -122,42 +129,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\RobotCore\hw_core.c" />
-    <ClCompile Include="..\..\RobotCore\l3gd20h.c" />
-    <ClCompile Include="..\..\RobotCore\main.c" />
-    <ClCompile Include="..\..\RobotCore\mems.c" />
-    <ClCompile Include="..\..\RobotCore\MotorDriver.c" />
-    <ClCompile Include="..\..\RobotCore\pid.c" />
-    <ClCompile Include="..\..\third_party\Drivers\BSP\Components\ili9341\ili9341.c" />
-    <ClCompile Include="..\..\third_party\Drivers\BSP\Components\l3gd20\l3gd20.c" />
-    <ClCompile Include="..\..\third_party\Drivers\BSP\Components\lsm303d\lsm303d.c" />
-    <ClCompile Include="..\..\third_party\Drivers\BSP\STM32F4xx_Nucleo_144\stm32f4xx_nucleo_144.c" />
-    <ClCompile Include="..\..\third_party\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim.c" />
-    <ClCompile Include="..\..\third_party\Projects\STM32F429ZI-Nucleo\Demonstrations\Src\stm32f4xx_it.c" />
-    <ClCompile Include="..\..\third_party\Projects\STM32F429ZI-Nucleo\Demonstrations\Src\system_stm32f4xx.c" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\RobotCore\hw_core.h" />
-    <ClInclude Include="..\..\RobotCore\l3gd20h.h" />
-    <ClInclude Include="..\..\RobotCore\main.h" />
-    <ClInclude Include="..\..\RobotCore\mems.h" />
-    <ClInclude Include="..\..\RobotCore\MotorDriver.h" />
-    <ClInclude Include="..\..\RobotCore\pid.h" />
-    <ClInclude Include="..\..\third_party\Drivers\BSP\Components\ili9341\ili9341.h" />
-    <ClInclude Include="..\..\third_party\Drivers\BSP\Components\l3gd20\l3gd20.h" />
-    <ClInclude Include="..\..\third_party\Drivers\BSP\Components\lsm303d\lsm303d.h" />
-    <ClInclude Include="..\..\third_party\Drivers\BSP\STM32F4xx_Nucleo_144\stm32f4xx_nucleo_144.h" />
-    <ClInclude Include="..\..\third_party\Projects\STM32F429ZI-Nucleo\Demonstrations\Inc\stm32f4xx_hal_conf.h" />
-    <ClInclude Include="..\..\third_party\Projects\STM32F429ZI-Nucleo\Demonstrations\Inc\stm32f4xx_it.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\third_party\Drivers\BSP\Components\ili9341\Release_Notes.html" />
-    <None Include="..\..\third_party\Drivers\BSP\Components\l3gd20\Release_Notes.html" />
-    <None Include="..\..\third_party\Drivers\BSP\Components\lsm303dlhc\Release_Notes.html" />
-    <None Include="..\..\third_party\Drivers\BSP\STM32F429I-Discovery\Release_Notes.html" />
-    <None Include="..\..\third_party\Projects\STM32F429ZI-Nucleo\Demonstrations\EWARM\startup_stm32f429xx.s" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
