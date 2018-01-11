@@ -5,21 +5,11 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="lib">
-      <UniqueIdentifier>{c4d6ae04-fee1-4017-9bd8-b92b6db59436}</UniqueIdentifier>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{4792a972-110b-4e56-b944-50e63244e8b8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="code">
-      <UniqueIdentifier>{304814b5-98c8-4d1c-a220-f4a1bf9bd154}</UniqueIdentifier>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{2e623e7c-8cf8-42ea-a3fb-109105605c14}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="circle_buffer.c">
-      <Filter>code</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="circle_buffer.h">
-      <Filter>code</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

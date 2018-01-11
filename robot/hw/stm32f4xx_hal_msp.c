@@ -1,14 +1,22 @@
 /**
   ******************************************************************************
-  * @file    Templates/Inc/main.h 
+  * @file    Templates/Src/stm32f4xx_hal_msp.c
   * @author  MCD Application Team
-  * @version V1.2.2
-  * @date    09-October-2015
-  * @brief   Header for main.c module
+  * @brief   HAL MSP module.
+  *         
+  @verbatim
+ ===============================================================================
+                     ##### How to use this driver #####
+ ===============================================================================
+    [..]
+    This file is generated automatically by STM32CubeMX and eventually modified 
+    by the user
+
+  @endverbatim
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -33,28 +41,61 @@
   * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
-  */
-  
-/* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __MAIN_H
-#define __MAIN_H
+  */ 
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
-#include "stm32f4xx_nucleo_144.h"
-#include "mems.h"
 
+/** @addtogroup STM32F4xx_HAL_Driver
+  * @{
+  */
 
-/* Exported types ------------------------------------------------------------*/
-/* Exported constants --------------------------------------------------------*/
-#define LCD_FRAME_BUFFER_LAYER0                  (LCD_FRAME_BUFFER+0x130000)
-#define LCD_FRAME_BUFFER_LAYER1                  LCD_FRAME_BUFFER
-#define CONVERTED_FRAME_BUFFER                   (LCD_FRAME_BUFFER+0x260000)
+/** @defgroup HAL_MSP
+  * @brief HAL MSP module.
+  * @{
+  */
 
-/* Exported macro ------------------------------------------------------------*/
-/* Exported functions ------------------------------------------------------- */
+/* Private typedef -----------------------------------------------------------*/
+/* Private define ------------------------------------------------------------*/
+/* Private macro -------------------------------------------------------------*/
+/* Private variables ---------------------------------------------------------*/
+/* Private function prototypes -----------------------------------------------*/
+/* Private functions ---------------------------------------------------------*/
 
-void Error_Handler( void );
-#endif /* __MAIN_H */
+/** @defgroup HAL_MSP_Private_Functions
+  * @{
+  */
+
+/**
+  * @brief  Initializes the Global MSP.
+  * @param  None
+  * @retval None
+  */
+void HAL_MspInit(void)
+{
+
+}
+
+/**
+  * @brief  DeInitializes the Global MSP.
+  * @param  None  
+  * @retval None
+  */
+void HAL_MspDeInit(void)
+{
+
+}
+
+/**
+  * @}
+  */
+
+/**
+  * @}
+  */
+
+/**
+  * @}
+  */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "robotcore", "..\robotcore\robotcore.vcxproj", "{F02333B8-206E-4312-B139-71A98E6369BD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "core", "..\robotcore\robotcore.vcxproj", "{F02333B8-206E-4312-B139-71A98E6369BD}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hw", "hw\hw.vcxproj", "{3A63360B-0E5B-4506-95B9-8336CD72CF9C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +23,19 @@ Global
 		{F02333B8-206E-4312-B139-71A98E6369BD}.Release|x64.Build.0 = Release|x64
 		{F02333B8-206E-4312-B139-71A98E6369BD}.Release|x86.ActiveCfg = Release|Win32
 		{F02333B8-206E-4312-B139-71A98E6369BD}.Release|x86.Build.0 = Release|Win32
+		{3A63360B-0E5B-4506-95B9-8336CD72CF9C}.Debug|x64.ActiveCfg = Debug|x64
+		{3A63360B-0E5B-4506-95B9-8336CD72CF9C}.Debug|x64.Build.0 = Debug|x64
+		{3A63360B-0E5B-4506-95B9-8336CD72CF9C}.Debug|x86.ActiveCfg = Debug|Win32
+		{3A63360B-0E5B-4506-95B9-8336CD72CF9C}.Debug|x86.Build.0 = Debug|Win32
+		{3A63360B-0E5B-4506-95B9-8336CD72CF9C}.Release|x64.ActiveCfg = Release|x64
+		{3A63360B-0E5B-4506-95B9-8336CD72CF9C}.Release|x64.Build.0 = Release|x64
+		{3A63360B-0E5B-4506-95B9-8336CD72CF9C}.Release|x86.ActiveCfg = Release|Win32
+		{3A63360B-0E5B-4506-95B9-8336CD72CF9C}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C38EAC72-743B-42D9-AE70-8A1F4B56BE63}
 	EndGlobalSection
 EndGlobal
