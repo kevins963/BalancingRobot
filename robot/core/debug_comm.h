@@ -1,12 +1,14 @@
 #ifndef ROBOT_CORE_DEBUG_COMM_H
 #define ROBOT_CORE_DEBUG_COMM_H
 
+#include "robot/core/integer.h"
+
 // public defines
 
 // public structs
 typedef struct  {
-  uint8_t rx_buf[];
-  uint8_t tx_buf[];
+  uint8_t rx_buf;
+  uint8_t tx_buf;
 } DebugComm;
 
 // public functions

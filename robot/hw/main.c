@@ -1,3 +1,5 @@
+#include "robot/hw/system_handler.h"
+#include "robot/hw/debug_comm_hw.h"
 #include "third_party/stm32f4/drivers/cmsis/device/st/stm32f4xx/include/stm32f4xx.h"
 
 void ConfigSystemClock(void);
@@ -6,7 +8,15 @@ void InitErrorHandler(void);
 int main() {
   
   HAL_Init();
+  
+  // 16 level of preemptive ISRs
+  HAL_NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);
+
   ConfigSystemClock();
+  
+  DebugCommHw_Init();
+  
+  while(1);
   
   return 0;
 }

@@ -1414,6 +1414,9 @@
             <file>
                 <name>$PROJ_DIR$\..\robot\core\debug_comm.h</name>
             </file>
+            <file>
+                <name>$PROJ_DIR$\..\robot\core\integer.h</name>
+            </file>
         </group>
         <group>
             <name>hw</name>
@@ -1427,10 +1430,19 @@
                 <name>$PROJ_DIR$\..\robot\hw\main.c</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\..\robot\hw\stm32f4xx_hal_conf.h</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\robot\hw\stm32f4xx_hal_msp.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\robot\hw\stm32f4xx_it.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\robot\hw\system_config.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\robot\hw\system_handler.h</name>
             </file>
         </group>
     </group>
