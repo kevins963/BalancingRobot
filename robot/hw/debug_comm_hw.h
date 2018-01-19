@@ -1,5 +1,5 @@
-#ifndef ROBOT_HW_DEBUG_COMM_HW_H
-#define ROBOT_HW_DEBUG_COMM_HW_H
+#ifndef ROBOT_HW_DEBUG_COMM_HW_H_
+#define ROBOT_HW_DEBUG_COMM_HW_H_
 
 // public defines
 
@@ -8,4 +8,4 @@
 // public functions
 void DebugCommHw_Init(void);
 
-#endif  // ROBOT_HW_DEBUG_COMM_HW_H
+#endif  // ROBOT_HW_DEBUG_COMM_HW_H_
