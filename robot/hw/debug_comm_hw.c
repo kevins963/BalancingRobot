@@ -22,7 +22,9 @@
 
 // private structs
 UART_HandleTypeDef uart_handle;
+uint8_t rx_raw_[64];
 CircleBuffer rx_;
+uint8_t tx_raw_[64];
 CircleBuffer tx_;
 
 // private function declarations
@@ -30,8 +32,17 @@ void DebugCommHw_ConfigUsart(void);
 
 // public functions
 void DebugCommHw_Init(void) {
+  CircleBuffer_Init(&rx_, rx_raw_, 64);
+  CircleBuffer_Init(&tx_, tx_raw_, 64);
   DebugCommHw_ConfigUsart();
-  HAL_UART_Transmit_IT(&uart_handle, buf, 20);
+  DebugCommHw_Write("Hello dude, friend", 10);
+  SET_BIT(uart_handle.Instance->CR1, USART_CR1_RXNEIE);
+  SET_BIT(uart_handle.Instance->CR3, USART_CR3_EIE);
+}
+
+void DebugCommHw_Write(const uint8_t* buf, int count) {
+  CircleBuffer_WriteBlock(&tx_, buf, count);
+  SET_BIT(uart_handle.Instance->CR1, USART_CR1_TXEIE);
 }
 
 // private functions
@@ -78,7 +89,6 @@ void USART3_IRQHandler() {
   uint32_t cr1its = READ_REG(huart->Instance->CR1);
   uint32_t cr3its = READ_REG(huart->Instance->CR3);
   uint32_t errorflags = 0x00U;
-  uint32_t dmarequest = 0x00U;
 
   /* If no error occurs */
   errorflags = (isrflags & (uint32_t)(USART_SR_PE | USART_SR_FE | USART_SR_ORE |
@@ -119,20 +129,16 @@ void USART3_IRQHandler() {
         ((cr3its & USART_CR3_EIE) != RESET)) {
       huart->ErrorCode |= HAL_UART_ERROR_ORE;
     }
-
-    /* UART in mode Transmitter
-     * ------------------------------------------------*/
-    if (((isrflags & USART_SR_TXE) != RESET) &&
-        ((cr1its & USART_CR1_TXEIE) != RESET)) {
-      CircleBuffer_WriteByte(&rx_, huart->Instance->DR & 0x00ff);
-      return;
-    }
-
-    /* UART in mode Transmitter end
-     * --------------------------------------------*/
-    if (((isrflags & USART_SR_TC) != RESET) &&
-        ((cr1its & USART_CR1_TCIE) != RESET)) {
-      UART_EndTransmit_IT(huart);
-      return;
-    }
   }
+
+  /* UART in mode Transmitter
+   * ------------------------------------------------*/
+  if (((isrflags & USART_SR_TXE) != RESET) &&
+      ((cr1its & USART_CR1_TXEIE) != RESET)) {
+    huart->Instance->DR = CircleBuffer_ReadByte(&tx_);
+    if (CircleBuffer_GetCount(&tx_) == 0) {
+      CLEAR_BIT(huart->Instance->CR1, USART_CR1_TXEIE);
+    }
+    return;
+  }
+}

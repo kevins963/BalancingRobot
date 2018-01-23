@@ -4,11 +4,9 @@
 // private structs
 
 // private functions
-int CircleBuffer_GetCount(CircleBuffer* p_this) {
-  return (p_this->write_pos < p_this->read_pos)
-             ? (p_this->write_pos - p_this->read_pos + p_this->size)
-             : (p_this->write_pos - p_this->read_pos);
-}
+int CircleBuffer_GetRemainingCount(CircleBuffer* p_this);
+void CircleBuffer_IncrementRead(CircleBuffer* p_this, int count);
+void CircleBuffer_IncrementWrite(CircleBuffer* p_this, int count);
 
 int CircleBuffer_GetRemainingCount(CircleBuffer* p_this) {
   // size will always be 1 short of full
@@ -48,4 +46,22 @@ bool CircleBuffer_WriteByte(CircleBuffer* p_this, uint8_t data) {
     return true;
   }
   return false;
+}
+
+int CircleBuffer_WriteBlock(CircleBuffer* p_this, const uint8_t* data,
+                            int count) {
+  int write_size = MIN(CircleBuffer_GetRemainingCount(p_this), count);
+
+  // slow, move the memcpy
+  for (int i = 0; i < write_size; i++) {
+    CircleBuffer_WriteByte(p_this, data[i]);
+  }
+
+  return write_size;
+}
+
+int CircleBuffer_GetCount(CircleBuffer* p_this) {
+  return (p_this->write_pos < p_this->read_pos)
+             ? (p_this->write_pos - p_this->read_pos + p_this->size)
+             : (p_this->write_pos - p_this->read_pos);
 }
