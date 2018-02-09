@@ -22,12 +22,24 @@
     <ClInclude Include="..\..\robot\core\circle_buffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\robot\core\encoder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\robot\core\util.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\robot\core\debug_comm.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\robot\core\circle_buffer.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\robot\core\encoder.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\robot\core\util.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

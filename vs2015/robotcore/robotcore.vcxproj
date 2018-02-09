@@ -21,11 +21,15 @@
   <ItemGroup>
     <ClCompile Include="..\..\robot\core\circle_buffer.c" />
     <ClCompile Include="..\..\robot\core\debug_comm.c" />
+    <ClCompile Include="..\..\robot\core\encoder.c" />
+    <ClCompile Include="..\..\robot\core\util.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\robot\core\circle_buffer.h" />
     <ClInclude Include="..\..\robot\core\debug_comm.h" />
+    <ClInclude Include="..\..\robot\core\encoder.h" />
     <ClInclude Include="..\..\robot\core\integer.h" />
+    <ClInclude Include="..\..\robot\core\util.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F02333B8-206E-4312-B139-71A98E6369BD}</ProjectGuid>

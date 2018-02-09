@@ -313,7 +313,7 @@
                 </option>
                 <option>
                     <name>CCRequirePrototypes</name>
-                    <state>1</state>
+                    <state>0</state>
                 </option>
                 <option>
                     <name>CCDiagWarnAreErr</name>
@@ -1259,7 +1259,19 @@
                 <name>$PROJ_DIR$\..\robot\core\debug_comm.h</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\..\robot\core\encoder.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\robot\core\encoder.h</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\robot\core\integer.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\robot\core\util.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\robot\core\util.h</name>
             </file>
         </group>
         <group>
@@ -1269,6 +1281,12 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\robot\hw\debug_comm_hw.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\robot\hw\encoder_hw.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\robot\hw\encoder_hw.h</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\robot\hw\main.c</name>
