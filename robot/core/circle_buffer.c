@@ -5,8 +5,6 @@
 
 // private functions
 int CircleBuffer_GetRemainingCount(CircleBuffer* p_this);
-void CircleBuffer_IncrementRead(CircleBuffer* p_this, int count);
-void CircleBuffer_IncrementWrite(CircleBuffer* p_this, int count);
 
 int CircleBuffer_GetRemainingCount(CircleBuffer* p_this) {
   // size will always be 1 short of full
@@ -39,6 +37,11 @@ uint8_t CircleBuffer_ReadByte(CircleBuffer* p_this) {
   return data;
 }
 
+uint8_t CircleBuffer_Peek(const CircleBuffer* p_this, int offset) {
+  int read_index = (p_this->read_pos + offset) % p_this->size;
+  return p_this->buffer[read_index];
+}
+
 bool CircleBuffer_WriteByte(CircleBuffer* p_this, uint8_t data) {
   if (CircleBuffer_GetRemainingCount(p_this) > 0) {
     p_this->buffer[p_this->write_pos] = data;
@@ -52,7 +55,7 @@ int CircleBuffer_WriteBlock(CircleBuffer* p_this, const uint8_t* data,
                             int count) {
   int write_size = MIN(CircleBuffer_GetRemainingCount(p_this), count);
 
-  // slow, move the memcpy
+  // TODO(kevins963): slow, move to memcpy
   for (int i = 0; i < write_size; i++) {
     CircleBuffer_WriteByte(p_this, data[i]);
   }
@@ -60,7 +63,20 @@ int CircleBuffer_WriteBlock(CircleBuffer* p_this, const uint8_t* data,
   return write_size;
 }
 
-int CircleBuffer_GetCount(CircleBuffer* p_this) {
+int CircleBuffer_CopyFrom(CircleBuffer* p_this, const CircleBuffer* src) {
+  int count =
+      MIN(CircleBuffer_GetRemainingCount(p_this), CircleBuffer_GetCount(src));
+  int copy_size = 0;
+
+  // TODO(kevins963): slow, move to memcpy
+  for (int i = 0; i < count; i++) {
+    copy_size += CircleBuffer_WriteByte(p_this, CircleBuffer_Peek(src, i));
+  }
+
+  return copy_size;
+}
+
+int CircleBuffer_GetCount(const CircleBuffer* p_this) {
   return (p_this->write_pos < p_this->read_pos)
              ? (p_this->write_pos - p_this->read_pos + p_this->size)
              : (p_this->write_pos - p_this->read_pos);

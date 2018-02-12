@@ -321,6 +321,11 @@
   <ItemGroup>
     <None Include="..\..\..\ewarm\startup_stm32f429xx.s" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\robotcore\robotcore.vcxproj">
+      <Project>{f02333b8-206e-4312-b139-71a98e6369bd}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

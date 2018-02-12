@@ -8,12 +8,14 @@
 typedef enum { MotorTypes_Motor1, MotorTypes_Motor2 } MotorTypes;
 
 // public structs
-FORWARD_AND_EMPTY_STRUCT(EncoderHw)
+FORWARD_DECLARE_STRUCT(EncoderHw)
 
 struct EncoderHw {
   Encoder base;
   MotorTypes motor_type;
 };
+
+DEFINE_EMPTY_STRUCT(EncoderHw)
 
 // public functions
 void EncoderHw_Init(EncoderHw* p_this, MotorTypes motor_type);

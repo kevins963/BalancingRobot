@@ -30,19 +30,26 @@ CircleBuffer tx_;
 // private function declarations
 void DebugCommHw_ConfigUsart(void);
 
+int DebugCommHw_OnBufferedIoWrite(const CircleBuffer* buffer) {
+  int size = CircleBuffer_CopyFrom(&tx_, buffer);
+  if (size) {
+    SET_BIT(uart_handle.Instance->CR1, USART_CR1_TXEIE);
+  }
+
+  return size;
+}
+
 // public functions
-void DebugCommHw_Init(void) {
+void DebugCommHw_Init(DebugCommHw* p_this) {
+  BufferedIoEvent events;
+  events.EventWrite = DebugCommHw_OnBufferedIoWrite;
+
+  DebugComm_Init(&p_this->base, &events);
   CircleBuffer_Init(&rx_, rx_raw_, 64);
   CircleBuffer_Init(&tx_, tx_raw_, 64);
   DebugCommHw_ConfigUsart();
-  DebugCommHw_Write("Hello dude, friend", 10);
   SET_BIT(uart_handle.Instance->CR1, USART_CR1_RXNEIE);
   SET_BIT(uart_handle.Instance->CR3, USART_CR3_EIE);
-}
-
-void DebugCommHw_Write(const uint8_t* buf, int count) {
-  CircleBuffer_WriteBlock(&tx_, buf, count);
-  SET_BIT(uart_handle.Instance->CR1, USART_CR1_TXEIE);
 }
 
 // private functions

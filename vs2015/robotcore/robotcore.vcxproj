@@ -19,12 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\robot\core\buffered_io.c" />
     <ClCompile Include="..\..\robot\core\circle_buffer.c" />
     <ClCompile Include="..\..\robot\core\debug_comm.c" />
     <ClCompile Include="..\..\robot\core\encoder.c" />
     <ClCompile Include="..\..\robot\core\util.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\robot\core\buffered_io.h" />
     <ClInclude Include="..\..\robot\core\circle_buffer.h" />
     <ClInclude Include="..\..\robot\core\debug_comm.h" />
     <ClInclude Include="..\..\robot\core\encoder.h" />

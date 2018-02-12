@@ -1409,6 +1409,12 @@
         <group>
             <name>core</name>
             <file>
+                <name>$PROJ_DIR$\..\robot\core\buffered_io.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\robot\core\buffered_io.h</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\robot\core\circle_buffer.c</name>
             </file>
             <file>

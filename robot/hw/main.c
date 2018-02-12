@@ -9,9 +9,11 @@
 void ConfigSystemClock(void);
 void InitErrorHandler(void);
 
+EncoderHw encoder_hw_motor_1;
+EncoderHw encoder_hw_motor_2;
+DebugCommHw debug_comm_hw;
+
 int main() {
-  EncoderHw encoder_hw_motor_1;
-  EncoderHw encoder_hw_motor_2;
   HAL_Init();
 
   // 16 level of preemptive ISRs
@@ -19,28 +21,31 @@ int main() {
 
   ConfigSystemClock();
 
-  DebugCommHw_Init();
+  DebugCommHw_Init(&debug_comm_hw);
   EncoderHw_Init(&encoder_hw_motor_1, MotorTypes_Motor1);
   EncoderHw_Init(&encoder_hw_motor_2, MotorTypes_Motor2);
 
   while (1) {
-    static int last_sys_tick = 0;
-    static uint8_t buf[20];
+    static uint8_t buf[64];
 
     {
       static int tick = 0;
       if (tick < HAL_GetTick()) {
-        tick = HAL_GetTick();
+        tick = HAL_GetTick() + 10;
         Encoder_Run(&encoder_hw_motor_1.base);
         Encoder_Run(&encoder_hw_motor_2.base);
+        DebugComm_Run(&debug_comm_hw.base);
       }
     }
-    if (last_sys_tick < HAL_GetTick()) {
-      last_sys_tick = HAL_GetTick() + 1000;
-      sprintf(buf, "M1: %d, M2 %d\r\n",
-              Encoder_GetPosition(&encoder_hw_motor_1.base),
-              Encoder_GetPosition(&encoder_hw_motor_2.base));
-      DebugCommHw_Write(buf, strlen(buf));
+    {
+      static int last_sys_tick = 0;
+      if (last_sys_tick < HAL_GetTick()) {
+        last_sys_tick = HAL_GetTick() + 1000;
+        sprintf(buf, "M1: %ld, M2 %ld\r\n",
+                Encoder_GetPosition(&encoder_hw_motor_1.base),
+                Encoder_GetPosition(&encoder_hw_motor_2.base));
+        DebugComm_SendData(&debug_comm_hw.base, buf, strlen(buf));
+      }
     }
   }
 

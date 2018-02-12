@@ -5,10 +5,6 @@
 #define DEFINE_EMPTY_STRUCT(struct_name) \
   static const struct struct_name kEmpty##struct_name;
 
-#define FORWARD_AND_EMPTY_STRUCT(name) \
-  FORWARD_DECLARE_STRUCT(name)         \
-  DEFINE_EMPTY_STRUCT(name)
-
 #define InitClass(class_name) *p_this = kEmpty##class_name;
 
 #define InitDerivedClass(derived_class, base_class, ...) \

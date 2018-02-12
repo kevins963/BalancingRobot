@@ -10,8 +10,10 @@ uint16_t Encoder_GetEncoderCount(Encoder* p_this) {
 }
 
 void Encoder_UpdateEncoderPosition(Encoder* p_this) {
-  uint32_t encoder_count = Encoder_GetEncoderCount(p_this);
-  int32_t encoder_diff = (int32_t)(encoder_count - p_this->last_encoder_count);
+  int32_t encoder_count = Encoder_GetEncoderCount(p_this);  
+  int32_t encoder_diff = encoder_count - p_this->last_encoder_count;
+  if (encoder_diff >= INT16_MAX) { encoder_diff = (0xFFFF - encoder_diff); }
+  else if (encoder_diff <= INT16_MIN){ encoder_diff = ( 0xFFFF + encoder_diff); }
 
   p_this->encoder_position += encoder_diff;
   p_this->last_encoder_count = encoder_count;
