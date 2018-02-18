@@ -3,8 +3,10 @@
 [Ll]ist/
 [Dd]ebug/
 
-/settings/
+settings/
 /RobotCore/settings/
+.vs/
+vs2015/*/
 
 *.suo
 *.sdf
