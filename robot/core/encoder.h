@@ -1,6 +1,7 @@
 #ifndef ROBOT_CORE_ENCODER_H_
 #define ROBOT_CORE_ENCODER_H_
 
+#include "robot/core/defs.h"
 #include "robot/core/integer.h"
 
 // public defines

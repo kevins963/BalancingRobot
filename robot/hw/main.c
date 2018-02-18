@@ -1,9 +1,12 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "robot/core/core.h"
 #include "robot/hw/debug_comm_hw.h"
 #include "robot/hw/encoder_hw.h"
+#include "robot/hw/motor_driver_hw.h"
 #include "robot/hw/system_handler.h"
+#include "robot/hw/system_time_hw.h"
 #include "third_party/stm32f4/drivers/cmsis/device/st/stm32f4xx/include/stm32f4xx.h"
 
 void ConfigSystemClock(void);
@@ -11,7 +14,10 @@ void InitErrorHandler(void);
 
 EncoderHw encoder_hw_motor_1;
 EncoderHw encoder_hw_motor_2;
+MotorDriverHw motor_driver_hw_motor_1;
+MotorDriverHw motor_driver_hw_motor_2;
 DebugCommHw debug_comm_hw;
+SystemTimeHw system_time_hw;
 
 int main() {
   HAL_Init();
@@ -21,32 +27,23 @@ int main() {
 
   ConfigSystemClock();
 
+  SystemTimeHw_Init(&system_time_hw);
   DebugCommHw_Init(&debug_comm_hw);
   EncoderHw_Init(&encoder_hw_motor_1, MotorTypes_Motor1);
   EncoderHw_Init(&encoder_hw_motor_2, MotorTypes_Motor2);
+  MotorDriverHw_Init(&motor_driver_hw_motor_1, MotorTypes_Motor1);
+  MotorDriverHw_Init(&motor_driver_hw_motor_2, MotorTypes_Motor2);
+
+  CoreAppDrivers drivers = kEmptyCoreAppDrivers;
+  drivers.debug_comm = &debug_comm_hw.base;
+  drivers.encoder_m1 = &encoder_hw_motor_1.base;
+  drivers.encoder_m2 = &encoder_hw_motor_2.base;
+  drivers.system_time = &system_time_hw.base;
+
+  CoreApp_Init(&drivers);
 
   while (1) {
-    static uint8_t buf[64];
-
-    {
-      static int tick = 0;
-      if (tick < HAL_GetTick()) {
-        tick = HAL_GetTick() + 10;
-        Encoder_Run(&encoder_hw_motor_1.base);
-        Encoder_Run(&encoder_hw_motor_2.base);
-        DebugComm_Run(&debug_comm_hw.base);
-      }
-    }
-    {
-      static int last_sys_tick = 0;
-      if (last_sys_tick < HAL_GetTick()) {
-        last_sys_tick = HAL_GetTick() + 1000;
-        sprintf(buf, "M1: %ld, M2 %ld\r\n",
-                Encoder_GetPosition(&encoder_hw_motor_1.base),
-                Encoder_GetPosition(&encoder_hw_motor_2.base));
-        DebugComm_SendData(&debug_comm_hw.base, buf, strlen(buf));
-      }
-    }
+    CoreApp_Run();
   }
 
   return 0;

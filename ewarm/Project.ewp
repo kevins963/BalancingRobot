@@ -1259,10 +1259,19 @@
                 <name>$PROJ_DIR$\..\robot\core\circle_buffer.h</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\..\robot\core\core.cc</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\robot\core\core.h</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\robot\core\debug_comm.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\robot\core\debug_comm.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\robot\core\defs.h</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\robot\core\encoder.c</name>
@@ -1272,6 +1281,9 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\robot\core\integer.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\robot\core\system_time.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\robot\core\util.c</name>
@@ -1298,6 +1310,12 @@
                 <name>$PROJ_DIR$\..\robot\hw\main.c</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\..\robot\hw\motor_driver_hw.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\robot\hw\motor_driver_hw.h</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\robot\hw\stm32f4xx_hal_conf.h</name>
             </file>
             <file>
@@ -1311,6 +1329,12 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\robot\hw\system_handler.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\robot\hw\system_time_hw.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\robot\hw\system_time_hw.h</name>
             </file>
         </group>
     </group>

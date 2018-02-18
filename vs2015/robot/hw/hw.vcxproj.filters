@@ -300,6 +300,12 @@
     <ClCompile Include="..\..\..\robot\template.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\robot\hw\system_time_hw.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\robot\hw\motor_driver_hw.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\third_party\stm32f4\Drivers\BSP\STM32F4xx_Nucleo_144\stm32f4xx_nucleo_144.h">
@@ -612,6 +618,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\robot\template.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\robot\hw\system_time_hw.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\robot\hw\motor_driver_hw.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

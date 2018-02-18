@@ -120,9 +120,11 @@
     <ClCompile Include="..\..\..\robot\hw\debug_comm_hw.c" />
     <ClCompile Include="..\..\..\robot\hw\encoder_hw.c" />
     <ClCompile Include="..\..\..\robot\hw\main.c" />
+    <ClCompile Include="..\..\..\robot\hw\motor_driver_hw.c" />
     <ClCompile Include="..\..\..\robot\hw\stm32f4xx_hal_msp.c" />
     <ClCompile Include="..\..\..\robot\hw\stm32f4xx_it.c" />
     <ClCompile Include="..\..\..\robot\hw\system_stm32f4xx.c" />
+    <ClCompile Include="..\..\..\robot\hw\system_time_hw.c" />
     <ClCompile Include="..\..\..\robot\template.c" />
     <ClCompile Include="..\..\..\third_party\stm32f4\Drivers\BSP\STM32F4xx-Nucleo\stm32f4xx_nucleo.c" />
     <ClCompile Include="..\..\..\third_party\stm32f4\Drivers\BSP\STM32F4xx_Nucleo_144\stm32f4xx_nucleo_144.c" />
@@ -215,10 +217,12 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\robot\hw\debug_comm_hw.h" />
     <ClInclude Include="..\..\..\robot\hw\encoder_hw.h" />
+    <ClInclude Include="..\..\..\robot\hw\motor_driver_hw.h" />
     <ClInclude Include="..\..\..\robot\hw\stm32f4xx_hal_conf.h" />
     <ClInclude Include="..\..\..\robot\hw\stm32f4xx_it.h" />
     <ClInclude Include="..\..\..\robot\hw\system_config.h" />
     <ClInclude Include="..\..\..\robot\hw\system_handler.h" />
+    <ClInclude Include="..\..\..\robot\hw\system_time_hw.h" />
     <ClInclude Include="..\..\..\robot\template.h" />
     <ClInclude Include="..\..\..\third_party\stm32f4\Drivers\BSP\STM32F4xx-Nucleo\stm32f4xx_nucleo.h" />
     <ClInclude Include="..\..\..\third_party\stm32f4\Drivers\BSP\STM32F4xx_Nucleo_144\stm32f4xx_nucleo_144.h" />

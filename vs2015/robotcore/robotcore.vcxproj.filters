@@ -31,6 +31,18 @@
     <ClInclude Include="..\..\robot\core\buffered_io.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\robot\core\core.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\robot\core\system_time.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\robot\core\motor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\robot\core\defs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\robot\core\debug_comm.c">
@@ -46,6 +58,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\robot\core\buffered_io.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\robot\core\core.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\robot\core\system_time.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\robot\core\motor.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

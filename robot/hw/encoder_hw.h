@@ -5,7 +5,6 @@
 #include "robot/core/util.h"
 
 // public defines
-typedef enum { MotorTypes_Motor1, MotorTypes_Motor2 } MotorTypes;
 
 // public structs
 FORWARD_DECLARE_STRUCT(EncoderHw)
