@@ -3,6 +3,8 @@
 
 #include "robot/core/debug_comm.h"
 #include "robot/core/encoder.h"
+#include "robot/core/l3gd20h.h"
+#include "robot/core/lsm303d.h"
 #include "robot/core/system_time.h"
 
 // public defines
@@ -15,6 +17,8 @@ struct CoreAppDrivers {
   Encoder* encoder_m2;
   DebugComm* debug_comm;
   SystemTime* system_time;
+  L3GD20H* gyro;
+  LSM303D* accel;
 };
 
 struct CoreApp {

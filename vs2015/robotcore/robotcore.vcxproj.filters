@@ -43,6 +43,13 @@
     <ClInclude Include="..\..\robot\core\defs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\robot\core\l3gd20h.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\robot\core\i2c_dev.h" />
+    <ClInclude Include="..\..\robot\core\lsm303d.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\robot\core\debug_comm.c">
@@ -60,13 +67,20 @@
     <ClCompile Include="..\..\robot\core\buffered_io.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\robot\core\core.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\robot\core\system_time.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\robot\core\motor.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\robot\core\core.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\robot\core\l3gd20h.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\robot\core\i2c_dev.c" />
+    <ClCompile Include="..\..\robot\core\lsm303d.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -68,7 +68,7 @@ extern "C" {
 /* #define HAL_SDRAM_MODULE_ENABLED */
 /* #define HAL_HASH_MODULE_ENABLED   */
 #define HAL_GPIO_MODULE_ENABLED
-/* #define HAL_I2C_MODULE_ENABLED */
+#define HAL_I2C_MODULE_ENABLED
 /* #define HAL_I2S_MODULE_ENABLED    */
 /* #define HAL_IWDG_MODULE_ENABLED  */
 /* #define HAL_LTDC_MODULE_ENABLED  */
@@ -124,8 +124,8 @@ extern "C" {
  */
 #if !defined(LSI_VALUE)
 #define LSI_VALUE (32000U) /*!< LSI Typical Value in Hz*/
-#endif /* LSI_VALUE */ /*!< Value of the Internal Low Speed oscillator in Hz \
-                        The real value may vary depending on the variations  \
+#endif /* LSI_VALUE */ /*!< Value of the Internal Low Speed oscillator in Hz \ \
+                        The real value may vary depending on the variations  \ \
                         in voltage and temperature.*/
 /**
  * @brief External Low Speed oscillator (LSE) value.

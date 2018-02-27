@@ -4,6 +4,7 @@
 #include "robot/core/core.h"
 #include "robot/hw/debug_comm_hw.h"
 #include "robot/hw/encoder_hw.h"
+#include "robot/hw/mems_hw.h"
 #include "robot/hw/motor_driver_hw.h"
 #include "robot/hw/system_handler.h"
 #include "robot/hw/system_time_hw.h"
@@ -18,6 +19,7 @@ MotorDriverHw motor_driver_hw_motor_1;
 MotorDriverHw motor_driver_hw_motor_2;
 DebugCommHw debug_comm_hw;
 SystemTimeHw system_time_hw;
+MemsHw mems_hw;
 
 int main() {
   HAL_Init();
@@ -33,12 +35,15 @@ int main() {
   EncoderHw_Init(&encoder_hw_motor_2, MotorTypes_Motor2);
   MotorDriverHw_Init(&motor_driver_hw_motor_1, MotorTypes_Motor1);
   MotorDriverHw_Init(&motor_driver_hw_motor_2, MotorTypes_Motor2);
+  MemsHw_Init(&mems_hw);
 
   CoreAppDrivers drivers = kEmptyCoreAppDrivers;
   drivers.debug_comm = &debug_comm_hw.base;
   drivers.encoder_m1 = &encoder_hw_motor_1.base;
   drivers.encoder_m2 = &encoder_hw_motor_2.base;
   drivers.system_time = &system_time_hw.base;
+  drivers.gyro = &mems_hw.gyro_driver;
+  drivers.accel = &mems_hw.accel_driver;
 
   CoreApp_Init(&drivers);
 

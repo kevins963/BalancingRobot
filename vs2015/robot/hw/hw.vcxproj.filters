@@ -626,6 +626,12 @@
     <ClInclude Include="..\..\..\robot\hw\motor_driver_hw.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\robot\hw\mems_hw.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\robot\hw\mems_hw.c">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\ewarm\startup_stm32f429xx.s">

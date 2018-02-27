@@ -1259,7 +1259,7 @@
                 <name>$PROJ_DIR$\..\robot\core\circle_buffer.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\..\robot\core\core.cc</name>
+                <name>$PROJ_DIR$\..\robot\core\core.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\robot\core\core.h</name>
@@ -1280,7 +1280,25 @@
                 <name>$PROJ_DIR$\..\robot\core\encoder.h</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\..\robot\core\i2c_dev.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\robot\core\i2c_dev.h</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\robot\core\integer.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\robot\core\l3gd20h.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\robot\core\l3gd20h.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\robot\core\lsm303d.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\robot\core\lsm303d.h</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\robot\core\system_time.c</name>
@@ -1308,6 +1326,12 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\robot\hw\main.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\robot\hw\mems_hw.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\robot\hw\mems_hw.h</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\robot\hw\motor_driver_hw.c</name>
