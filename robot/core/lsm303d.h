@@ -7,7 +7,30 @@
 
 #define LSM303D_DEVICE_ADDR (0x3A)
 
+#define LSM303D_RA_TEMP_OUT_L 0x05
+#define LSM303D_RA_TEMP_OUT_H 0x06
+#define LSM303D_RA_STATUS_M 0x07
+#define LSM303D_RA_OUT_X_L_M 0x08
+#define LSM303D_RA_OUT_X_H_M 0x09
+#define LSM303D_RA_OUT_Y_L_M 0x0A
+#define LSM303D_RA_OUT_Y_H_M 0x0B
+#define LSM303D_RA_OUT_Z_L_M 0x0C
+#define LSM303D_RA_OUT_Z_H_M 0x0D
 #define LSM303D_RA_WHO_AM_I_ADDR 0x0F
+
+#define LSM303D_RA_INT_CTRL_M 0x12
+#define LSM303D_RA_INT_SRC_M 0x13
+#define LSM303D_RA_INT_THS_L_M 0x14
+#define LSM303D_RA_INT_THS_H_M 0x15
+#define LSM303D_RA_OFFSET_X_L_M 0x16
+#define LSM303D_RA_OFFSET_X_H_M 0x17
+#define LSM303D_RA_OFFSET_Y_L_M 0x18
+#define LSM303D_RA_OFFSET_Y_H_M 0x19
+#define LSM303D_RA_OFFSET_Z_L_M 0x1A
+#define LSM303D_RA_OFFSET_Z_H_M 0x1B
+#define LSM303D_RA_REF_X 0x1C
+#define LSM303D_RA_REF_Y 0x1D
+#define LSM303D_RA_REF_Z 0x1E
 #define LSM303D_RA_CTRL0 0x1F
 #define LSM303D_RA_CTRL1 0x20
 #define LSM303D_RA_CTRL2 0x21
@@ -20,7 +43,7 @@
 #define LSM303D_RA_OUT_X_L_A 0x28
 #define LSM303D_RA_OUT_X_H_A 0x29
 #define LSM303D_RA_OUT_Y_L_A 0x2A
-#define LSM303D_RA_OUT_Y_H_A 0xB2
+#define LSM303D_RA_OUT_Y_H_A 0x2B
 #define LSM303D_RA_OUT_Z_L_A 0x2C
 #define LSM303D_RA_OUT_Z_H_A 0x2D
 #define LSM303D_RA_FIFO_CTRL 0x2E
@@ -161,17 +184,30 @@
 #define LSM303D_VAL_CTRL7_A_HPF_MODE_AUTO_RESET \
   MASKED_VALUE(3, BIT_POS_6, BIT_MASK_SIZE_2)
 
+#define LSM303D_SENSITIVITY_2G (0.000061F)
+#define LSM303D_SENSITIVITY_4G (0.000112F)
+#define LSM303D_SENSITIVITY_8G (0.000183F)
+#define LSM303D_SENSITIVITY_16G (0.000732F)
+
+BEGIN_STRUCT(AccelData)
+float x;
+float y;
+float z;
+END_STRUCT(AccelData)
+
 BEGIN_STRUCT(LSM303D)
 I2CDev i2c_dev;
 uint8_t device_address;
 uint8_t read_buf[LSM303D_RA_MAX_REGISTERS];
 uint8_t write_buf[LSM303D_RA_MAX_REGISTERS];
+AccelData accel_data;
 END_STRUCT(LSM303D)
 
 void LSM303D_Init(LSM303D* p_this, const I2cFunctions* i2c_functions);
 void LSM303D_Start(LSM303D* p_this);
 void LSM303D_ReadAll(LSM303D* p_this);
 void LSM303D_ReadWhoAmI(LSM303D* p_this);
+void LSM303D_ReadAccel(LSM303D* p_this);
 void LSM303D_OnComplete(LSM303D* p_this);
 
 #endif  // ROBOT_CORE_LSM303D_H_

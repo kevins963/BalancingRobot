@@ -35,19 +35,30 @@ void CoreApp_Run() {
         // L3GD20H_ReadWhoAmI(core_app_.drivers.gyro);
 
         LSM303D_ReadWhoAmI(core_app_.drivers.accel);
-        // ++fsm_pos;
+        ++fsm_pos;
       } else if (fsm_pos == 1) {
-        L3GD20H_Start(core_app_.drivers.gyro);
+        // L3GD20H_Start(core_app_.drivers.gyro);
+        LSM303D_Start(core_app_.drivers.accel);
         ++fsm_pos;
       } else if (fsm_pos == 2) {
-        L3GD20H_ReadAll(core_app_.drivers.gyro);
+        // L3GD20H_ReadAll(core_app_.drivers.gyro);
+        LSM303D_ReadAll(core_app_.drivers.accel);
         ++fsm_pos;
         delta = 100;
       } else if (fsm_pos == 3) {
-        L3GD20H_ReadGyroData(core_app_.drivers.gyro);
-        sprintf((char*)buf, "%f %f %f\r\n", core_app_.drivers.gyro->gyro_data.x,
+        // L3GD20H_ReadGyroData(core_app_.drivers.gyro);
+        LSM303D_ReadAccel(core_app_.drivers.accel);
+
+        /*sprintf((char*)buf, "%f %f %f\r\n",
+        core_app_.drivers.gyro->gyro_data.x,
                 core_app_.drivers.gyro->gyro_data.y,
                 core_app_.drivers.gyro->gyro_data.z);
+        DebugComm_SendData(core_app_.drivers.debug_comm, buf,
+                           strlen((char const*)buf));*/
+        sprintf((char*)buf, "%f %f %f\r\n",
+                core_app_.drivers.accel->accel_data.x,
+                core_app_.drivers.accel->accel_data.y,
+                core_app_.drivers.accel->accel_data.z);
         DebugComm_SendData(core_app_.drivers.debug_comm, buf,
                            strlen((char const*)buf));
       }
